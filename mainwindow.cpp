@@ -1,11 +1,17 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    api = new xsPasswd();
+    uiJoin = new DialogJoin(api);
+    while(uiJoin->exec() != QDialog::Accepted);
+
     ui->setupUi(this);
+    ui->comboTable->addItems(api->tableList());
 }
 
 MainWindow::~MainWindow()
@@ -13,28 +19,25 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_buttonJoin_clicked()
+QList<QStandardItem*> MainWindow::getRow(int index)
 {
-    if(ui->lineName->text().isEmpty() || ui->linePasswd->text().isEmpty())
-        return;
-
+    QList<QStandardItem*> out;
+    QStringList in = api->dataGet(index);
+    for(int i = 0; i < in.count(); i++)
+        out.insert(i,new QStandardItem(in.at(i)));
+    return out;
 }
-int join(QString tmpuser)
+
+void MainWindow::on_comboTable_currentIndexChanged(int index)
 {
-    QString key;
-    user = tmpuser;
-    for(int i = 0; i < MAXHIT; i++)
-    {
-        xsConsole() << "Enter your password ->";
-        xsConsole() >> key;
-        if(passwd(key) == OK)
-        {
-            joined = 1;
-            if(!database.connect(HOME_PATH + user + DBFILE))
-                xsConsole() << "Cannot access into your database file (" << HOME_PATH + user + DBFILE << ")\n";
-            return OK;
-        }
-    }
-    user = "tmp";
-    return FAIL;
+    api->tableUse(ui->comboTable->currentText());
+    QStringList fields = api->database->getFields(true);
+    table = new QStandardItemModel(0,fields.count(),this);
+
+    for(int i = 0; i < fields.count(); i++)
+        table->setHorizontalHeaderItem(i, new QStandardItem(fields.at(i)));
+
+    ui->tableView->setModel(table);
+    for(int i = 1; i <= api->database->getRecordCount() + 1; i++)
+        table->appendRow(getRow(i));
 }

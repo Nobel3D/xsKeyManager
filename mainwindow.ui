@@ -18,9 +18,9 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>500</y>
+      <y>520</y>
       <width>800</width>
-      <height>51</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="readOnly">
@@ -30,9 +30,9 @@
    <widget class="QPushButton" name="buttonEdit">
     <property name="geometry">
      <rect>
-      <x>350</x>
-      <y>440</y>
-      <width>100</width>
+      <x>330</x>
+      <y>470</y>
+      <width>131</width>
       <height>35</height>
      </rect>
     </property>
@@ -44,18 +44,18 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>230</y>
+      <y>50</y>
       <width>800</width>
-      <height>192</height>
+      <height>400</height>
      </rect>
     </property>
    </widget>
    <widget class="QComboBox" name="comboTable">
     <property name="geometry">
      <rect>
-      <x>350</x>
-      <y>170</y>
-      <width>100</width>
+      <x>260</x>
+      <y>10</y>
+      <width>251</width>
       <height>35</height>
      </rect>
     </property>
@@ -63,9 +63,9 @@
    <widget class="QPushButton" name="buttonRemove">
     <property name="geometry">
      <rect>
-      <x>600</x>
-      <y>440</y>
-      <width>100</width>
+      <x>580</x>
+      <y>470</y>
+      <width>131</width>
       <height>35</height>
      </rect>
     </property>
@@ -76,9 +76,9 @@
    <widget class="QPushButton" name="buttonAdd">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>440</y>
-      <width>100</width>
+      <x>80</x>
+      <y>470</y>
+      <width>131</width>
       <height>35</height>
      </rect>
     </property>
@@ -86,50 +86,104 @@
      <string>Add</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="buttonJoin">
+   <widget class="QPushButton" name="buttonCreate">
     <property name="geometry">
      <rect>
-      <x>350</x>
-      <y>100</y>
-      <width>100</width>
-      <height>35</height>
+      <x>540</x>
+      <y>10</y>
+      <width>131</width>
+      <height>34</height>
      </rect>
     </property>
     <property name="text">
-     <string>Join</string>
+     <string>Create</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineName">
+   <widget class="QPushButton" name="buttonRefresh">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>30</y>
-      <width>250</width>
-      <height>32</height>
+      <x>100</x>
+      <y>10</y>
+      <width>131</width>
+      <height>34</height>
      </rect>
     </property>
     <property name="text">
-     <string>User Name</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="linePasswd">
-    <property name="geometry">
-     <rect>
-      <x>490</x>
-      <y>30</y>
-      <width>250</width>
-      <height>32</height>
-     </rect>
-    </property>
-    <property name="inputMethodHints">
-     <set>Qt::ImhHiddenText</set>
-    </property>
-    <property name="text">
-     <string>Password</string>
+     <string>Refresh</string>
     </property>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>Fi&amp;le</string>
+    </property>
+    <addaction name="actionImport_Table"/>
+    <addaction name="actionImport_Database"/>
+    <addaction name="actionExport_Table"/>
+    <addaction name="actionExport_Database"/>
+   </widget>
+   <widget class="QMenu" name="menuTools">
+    <property name="title">
+     <string>Tools</string>
+    </property>
+    <addaction name="actionGenerator"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout_XSoftware"/>
+    <addaction name="actionAbout_QT"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuTools"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <action name="actionImport_Table">
+   <property name="text">
+    <string>Import Table</string>
+   </property>
+  </action>
+  <action name="actionImport_Database">
+   <property name="text">
+    <string>Import Database</string>
+   </property>
+  </action>
+  <action name="actionExport_Table">
+   <property name="text">
+    <string>Export Table</string>
+   </property>
+  </action>
+  <action name="actionExport_Database">
+   <property name="text">
+    <string>Export Database</string>
+   </property>
+  </action>
+  <action name="actionGenerator">
+   <property name="text">
+    <string>Generator</string>
+   </property>
+  </action>
+  <action name="actionAbout_XSoftware">
+   <property name="text">
+    <string>About XSoftware</string>
+   </property>
+  </action>
+  <action name="actionAbout_QT">
+   <property name="text">
+    <string>About QT</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

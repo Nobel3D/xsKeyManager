@@ -3,7 +3,9 @@
 # Project created by QtCreator 2017-04-27T18:47:38
 #
 #-------------------------------------------------
-
+QT += core
+QT += sql
+QT += network
 QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -24,8 +26,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    dialogjoin.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    dialogjoin.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    dialogjoin.ui
+
+
+win32:CONFIG(release, debug|release): LIBS += -L/usr/lib/release/ -lxs -lxspasswd
+else:win32:CONFIG(debug, debug|release): LIBS += -L/usr/lib/debug/ -lxs -lxspasswd
+else:unix: LIBS += -L/usr/lib/ -lxs -lxspasswd

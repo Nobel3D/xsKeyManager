@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QStandardItemModel>
+#include <libxspasswd/xspasswd.h>
+#include <dialogjoin.h>
 
 namespace Ui {
 class MainWindow;
@@ -16,10 +19,14 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_buttonJoin_clicked();
+    void on_comboTable_currentIndexChanged(int index);
 
 private:
     Ui::MainWindow *ui;
+    DialogJoin* uiJoin;
+    xsPasswd* api;
+    QStandardItemModel* table;
+    QList<QStandardItem*> getRow(int index);
 };
 
 #endif // MAINWINDOW_H
