@@ -21,6 +21,10 @@ public:
 private slots:
     void on_comboTable_currentIndexChanged(int index);
 
+    void on_buttonAdd_clicked();
+
+    void on_buttonRemove_clicked();
+
 private:
     Ui::MainWindow *ui;
     DialogJoin* uiJoin;

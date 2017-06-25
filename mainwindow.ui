@@ -27,7 +27,7 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="buttonEdit">
+   <widget class="QPushButton" name="buttonSave">
     <property name="geometry">
      <rect>
       <x>330</x>
@@ -37,7 +37,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Edit</string>
+     <string>Save</string>
     </property>
    </widget>
    <widget class="QTableView" name="tableView">
@@ -96,20 +96,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Create</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="buttonRefresh">
-    <property name="geometry">
-     <rect>
-      <x>100</x>
-      <y>10</y>
-      <width>131</width>
-      <height>34</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Refresh</string>
+     <string>Create Table</string>
     </property>
    </widget>
   </widget>
@@ -151,37 +138,37 @@
   </widget>
   <action name="actionImport_Table">
    <property name="text">
-    <string>Import Table</string>
+    <string>&amp;Import Table</string>
    </property>
   </action>
   <action name="actionImport_Database">
    <property name="text">
-    <string>Import Database</string>
+    <string>Import &amp;Database</string>
    </property>
   </action>
   <action name="actionExport_Table">
    <property name="text">
-    <string>Export Table</string>
+    <string>&amp;Export Table</string>
    </property>
   </action>
   <action name="actionExport_Database">
    <property name="text">
-    <string>Export Database</string>
+    <string>E&amp;xport Database</string>
    </property>
   </action>
   <action name="actionGenerator">
    <property name="text">
-    <string>Generator</string>
+    <string>&amp;Generator</string>
    </property>
   </action>
   <action name="actionAbout_XSoftware">
    <property name="text">
-    <string>About XSoftware</string>
+    <string>&amp;About XSoftware</string>
    </property>
   </action>
   <action name="actionAbout_QT">
    <property name="text">
-    <string>About QT</string>
+    <string>About &amp;QT</string>
    </property>
   </action>
  </widget>

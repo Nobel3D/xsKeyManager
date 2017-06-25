@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QDebug>
+#include <QItemSelectionModel>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -40,4 +41,14 @@ void MainWindow::on_comboTable_currentIndexChanged(int index)
     ui->tableView->setModel(table);
     for(int i = 1; i <= api->database->getRecordCount() + 1; i++)
         table->appendRow(getRow(i));
+}
+
+void MainWindow::on_buttonAdd_clicked()
+{
+    table->insertRow(table->rowCount());
+}
+
+void MainWindow::on_buttonRemove_clicked()
+{
+    table->removeRow(ui->tableView->currentIndex().row());
 }
