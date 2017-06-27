@@ -40,7 +40,7 @@
      <string>Save</string>
     </property>
    </widget>
-   <widget class="QTableView" name="tableView">
+   <widget class="uiTable" name="tableView">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -173,6 +173,13 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>uiTable</class>
+   <extends>QTableView</extends>
+   <header>uitable.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -27,10 +27,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    dialogjoin.cpp
+    dialogjoin.cpp \
+    uitable.cpp
 
 HEADERS  += mainwindow.h \
-    dialogjoin.h
+    dialogjoin.h \
+    uitable.h
 
 FORMS    += mainwindow.ui \
     dialogjoin.ui

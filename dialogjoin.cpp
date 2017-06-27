@@ -2,7 +2,6 @@
 #include "ui_dialogjoin.h"
 #include <QMessageBox>
 
-
 DialogJoin::DialogJoin(xsPasswd* _lib, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DialogJoin)
