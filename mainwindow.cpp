@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 #include "uitable.h"
 #include <QDebug>
+#include <QMessageBox>
+#include <QAction>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -13,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->tableView->init(api);
     ui->comboTable->addItems(api->tableList());
+    connect(ui->actionAbout_QT, SIGNAL(triggered()), this, SLOT(on_menuAboutQT()));
 }
 
 MainWindow::~MainWindow()
@@ -41,3 +44,16 @@ void MainWindow::on_buttonSave_clicked()
 {
 }
 
+
+void MainWindow::on_buttonCreate_clicked()
+{
+    create = new winCreate(api);
+    if(create->exec() == QDialog::Accepted)
+        ui->comboTable->addItem(create->name);
+
+}
+
+void MainWindow::on_menuAboutQT()
+{
+    QMessageBox::aboutQt(0, "About...");
+}

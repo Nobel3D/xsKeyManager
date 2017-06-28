@@ -28,14 +28,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += main.cpp\
         mainwindow.cpp \
     dialogjoin.cpp \
-    uitable.cpp
+    uitable.cpp \
+    wincreate.cpp
 
 HEADERS  += mainwindow.h \
     dialogjoin.h \
-    uitable.h
+    uitable.h \
+    wincreate.h
 
 FORMS    += mainwindow.ui \
-    dialogjoin.ui
+    dialogjoin.ui \
+    wincreate.ui
 
 
 win32:CONFIG(release, debug|release): LIBS += -L/usr/lib/release/ -lxs -lxspasswd
