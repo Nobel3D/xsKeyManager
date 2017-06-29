@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tableView->init(api);
     ui->comboTable->addItems(api->tableList());
     connect(ui->actionAbout_QT, SIGNAL(triggered()), this, SLOT(on_menuAboutQT()));
+    connect(ui->actionGenerator, SIGNAL(triggered()), this, SLOT(on_menuGenerate()));
 }
 
 MainWindow::~MainWindow()
@@ -56,4 +57,10 @@ void MainWindow::on_buttonCreate_clicked()
 void MainWindow::on_menuAboutQT()
 {
     QMessageBox::aboutQt(0, "About...");
+}
+
+void MainWindow::on_menuGenerate()
+{
+    generate = new winGenerate;
+    generate->show();
 }

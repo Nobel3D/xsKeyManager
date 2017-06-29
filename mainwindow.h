@@ -5,6 +5,7 @@
 #include <libxspasswd/xspasswd.h>
 #include <dialogjoin.h>
 #include <wincreate.h>
+#include <wingenerate.h>
 
 namespace Ui {
 class MainWindow;
@@ -25,11 +26,13 @@ private slots:
     void on_buttonSave_clicked();
     void on_buttonCreate_clicked();
     void on_menuAboutQT();
+    void on_menuGenerate();
 
 private:
     Ui::MainWindow *ui;
     DialogJoin* uiJoin;
     winCreate* create;
+    winGenerate* generate;
     xsPasswd* api;
 };
 

@@ -29,16 +29,19 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     dialogjoin.cpp \
     uitable.cpp \
-    wincreate.cpp
+    wincreate.cpp \
+    wingenerate.cpp
 
 HEADERS  += mainwindow.h \
     dialogjoin.h \
     uitable.h \
-    wincreate.h
+    wincreate.h \
+    wingenerate.h
 
 FORMS    += mainwindow.ui \
     dialogjoin.ui \
-    wincreate.ui
+    wincreate.ui \
+    wingenerate.ui
 
 
 win32:CONFIG(release, debug|release): LIBS += -L/usr/lib/release/ -lxs -lxspasswd
