@@ -4,6 +4,8 @@
 #include <QDebug>
 #include <QMessageBox>
 #include <QAction>
+#include <QFileDialog>
+#include <QFileInfoList>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -17,6 +19,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->comboTable->addItems(api->tableList());
     connect(ui->actionAbout_QT, SIGNAL(triggered()), this, SLOT(on_menuAboutQT()));
     connect(ui->actionGenerator, SIGNAL(triggered()), this, SLOT(on_menuGenerate()));
+    connect(ui->actionExport_Database, SIGNAL(triggered()), this, SLOT(on_menuExportDatabase()));
+    connect(ui->actionExport_Table, SIGNAL(triggered()), this, SLOT(on_menuExportTable()));
+    connect(ui->actionImport_Database, SIGNAL(triggered()), this, SLOT(on_menuImportDatabase()));
+    connect(ui->actionImport_Table, SIGNAL(triggered()), this, SLOT(on_menuImportTable()));
 }
 
 MainWindow::~MainWindow()
@@ -59,8 +65,50 @@ void MainWindow::on_menuAboutQT()
     QMessageBox::aboutQt(0, "About...");
 }
 
+void MainWindow::on_menuAboutXSoftware()
+{
+    QMessageBox::aboutQt(0, "About...");
+}
+
+
 void MainWindow::on_menuGenerate()
 {
     generate = new winGenerate;
     generate->show();
+}
+
+void MainWindow::on_menuImportTable()
+{
+    QString file;
+    file = QFileDialog::getOpenFileName(nullptr, "Select file...", QDir::homePath(), "*.csv");
+    if(!file.isEmpty())
+        api->importTable(QFileInfo(file).completeBaseName(), file);
+    ui->comboTable->addItem(QFileInfo(file).completeBaseName());
+}
+
+void MainWindow::on_menuImportDatabase()
+{
+    QFileInfoList files;
+    QStringList buffer;
+    buffer = QFileDialog::getOpenFileNames(nullptr, "Select files...", QDir::homePath(), "*.csv");
+    for(int i = 0; i < buffer.count(); i++)
+        files.append(QFileInfo(buffer.at(i)));
+    if(!files.isEmpty())
+        api->importDatabase(files);
+}
+
+void MainWindow::on_menuExportTable()
+{
+    QString file;
+    file = QFileDialog::getSaveFileName(nullptr, "Select file...", QDir::homePath(), "*.csv");
+    if(!file.isEmpty())
+        api->exportTable(file);
+}
+
+void MainWindow::on_menuExportDatabase()
+{
+    QString file = QFileDialog::getExistingDirectory(nullptr, "Select directory...", QDir::homePath());
+    QDir dir(file);
+    if(!file.isEmpty())
+        api->exportDatabase(dir);
 }

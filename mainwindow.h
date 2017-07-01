@@ -26,7 +26,12 @@ private slots:
     void on_buttonSave_clicked();
     void on_buttonCreate_clicked();
     void on_menuAboutQT();
+    void on_menuAboutXSoftware();
     void on_menuGenerate();
+    void on_menuImportTable();
+    void on_menuImportDatabase();
+    void on_menuExportTable();
+    void on_menuExportDatabase();
 
 private:
     Ui::MainWindow *ui;

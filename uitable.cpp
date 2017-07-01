@@ -16,14 +16,14 @@ void uiTable::loadTable()
 {
     if(table != nullptr)
         delete table;
-    QStringList fields = api->database->getFields();
+    QStringList fields = api->tableField();
     table = new QStandardItemModel(0,fields.count(),this);
 
     for(int i = 0; i < fields.count(); i++)
         table->setHorizontalHeaderItem(i, new QStandardItem(fields.at(i)));
 
     setModel(table);
-    for(int i = 1; i <= api->database->getRecordCount() + 1; i++)
+    for(int i = 0; i <= api->database->getRecordCount(); i++)
         table->appendRow(getRow(i));
 }
 
