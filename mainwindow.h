@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <libxspasswd/xspasswd.h>
+#include <libStronghold/stronghold.h>
 #include <dialogjoin.h>
 #include <wincreate.h>
 #include <wingenerate.h>
@@ -32,13 +32,15 @@ private slots:
     void on_menuImportDatabase();
     void on_menuExportTable();
     void on_menuExportDatabase();
+    void on_menuAdmin();
+    void on_menuDatabase();
 
 private:
     Ui::MainWindow *ui;
     DialogJoin* uiJoin;
     winCreate* create;
     winGenerate* generate;
-    xsPasswd* api;
+    Stronghold* api;
 };
 
 #endif // MAINWINDOW_H

@@ -3,7 +3,7 @@
 #include <QListView>
 #include <QMessageBox>
 
-winCreate::winCreate(xsPasswd *_api, QWidget *parent) :
+winCreate::winCreate(Stronghold *_api, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::winCreate)
 {

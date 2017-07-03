@@ -5,7 +5,7 @@
 #include <QItemSelectionModel>
 #include <QStandardItemModel>
 
-#include <libxspasswd/xspasswd.h>
+#include <libStronghold/stronghold.h>
 
 class uiTable : public QTableView
 {
@@ -13,15 +13,16 @@ class uiTable : public QTableView
 
 public:
     explicit uiTable(QWidget *parent = nullptr);
-    void init(xsPasswd *_api);
+    void init(Stronghold *_api);
     void addRecord();
     void removeRecord();
     void loadTable();
+    void adminTable();
 protected slots:
     void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles = QVector<int>()) override;
 private:
     QStandardItemModel* table = nullptr;
-    xsPasswd* api;
+    Stronghold* api;
     QList<QStandardItem*> getRow(int index);
     int getID(int row);
 };

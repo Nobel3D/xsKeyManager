@@ -6,11 +6,11 @@
 QT += core
 QT += sql
 QT += network
-QT       += core gui
+QT += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = xsKeyManager
+TARGET = Stronghold
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -44,6 +44,6 @@ FORMS    += mainwindow.ui \
     wingenerate.ui
 
 
-win32:CONFIG(release, debug|release): LIBS += -L/usr/lib/release/ -lxs -lxspasswd
-else:win32:CONFIG(debug, debug|release): LIBS += -L/usr/lib/debug/ -lxs -lxspasswd
-else:unix: LIBS += -L/usr/lib/ -lxs -lxspasswd
+win32:CONFIG(release, debug|release): LIBS += -L/usr/lib/release/ -lxs -lstronghold
+else:win32:CONFIG(debug, debug|release): LIBS += -L/usr/lib/debug/ -lxs -lstronghold
+else:unix: LIBS += -L/usr/lib/ -lxs -lstronghold

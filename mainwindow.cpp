@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    api = new xsPasswd();
+    api = new Stronghold(LOGINFILE);
     uiJoin = new DialogJoin(api);
     while(uiJoin->exec() != QDialog::Accepted);
     ui->setupUi(this);
@@ -23,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionExport_Table, SIGNAL(triggered()), this, SLOT(on_menuExportTable()));
     connect(ui->actionImport_Database, SIGNAL(triggered()), this, SLOT(on_menuImportDatabase()));
     connect(ui->actionImport_Table, SIGNAL(triggered()), this, SLOT(on_menuImportTable()));
+    connect(ui->actionAdminMode, SIGNAL(triggered()), this, SLOT(on_menuAdmin()));
 }
 
 MainWindow::~MainWindow()
@@ -111,4 +112,17 @@ void MainWindow::on_menuExportDatabase()
     QDir dir(file);
     if(!file.isEmpty())
         api->exportDatabase(dir);
+}
+
+void MainWindow::on_menuAdmin()
+{
+    ui->comboTable->addItems(api->login->getUsers());
+    ui->tableView->adminTable();
+}
+
+void MainWindow::on_menuDatabase()
+{
+    ui->comboTable->addItems(api->tableList());
+    api->tableUse(ui->comboTable->currentText());
+    ui->tableView->loadTable();
 }

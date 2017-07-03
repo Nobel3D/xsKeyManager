@@ -2,7 +2,7 @@
 #define WINCREATE_H
 
 #include <QDialog>
-#include <libxspasswd/xspasswd.h>
+#include <libStronghold/stronghold.h>
 #include <QStandardItemModel>
 
 namespace Ui {
@@ -14,7 +14,7 @@ class winCreate : public QDialog
     Q_OBJECT
 
 public:
-    explicit winCreate(xsPasswd* _api, QWidget *parent = 0);
+    explicit winCreate(Stronghold* _api, QWidget *parent = 0);
     ~winCreate();
 
     QString name;
@@ -27,7 +27,7 @@ private slots:
 
 private:
     Ui::winCreate *ui;
-    xsPasswd* api;
+    Stronghold* api;
     QStandardItemModel* list;
 };
 

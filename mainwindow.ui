@@ -107,7 +107,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>30</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -132,7 +132,15 @@
     <addaction name="actionAbout_XSoftware"/>
     <addaction name="actionAbout_QT"/>
    </widget>
+   <widget class="QMenu" name="menuAdmin">
+    <property name="title">
+     <string>Ad&amp;min</string>
+    </property>
+    <addaction name="actionAdminMode"/>
+    <addaction name="actionDatabaseMode"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuAdmin"/>
    <addaction name="menuTools"/>
    <addaction name="menuHelp"/>
   </widget>
@@ -169,6 +177,16 @@
   <action name="actionAbout_QT">
    <property name="text">
     <string>About &amp;QT</string>
+   </property>
+  </action>
+  <action name="actionAdminMode">
+   <property name="text">
+    <string>Switch Admin Mode</string>
+   </property>
+  </action>
+  <action name="actionDatabaseMode">
+   <property name="text">
+    <string>Switch Database Mode</string>
    </property>
   </action>
  </widget>

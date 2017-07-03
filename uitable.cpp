@@ -6,7 +6,7 @@ uiTable::uiTable(QWidget *parent)
 {
 }
 
-void uiTable::init(xsPasswd *_api)
+void uiTable::init(Stronghold *_api)
 {
     api = _api;
     loadTable();
@@ -25,6 +25,29 @@ void uiTable::loadTable()
     setModel(table);
     for(int i = 0; i <= api->database->getRecordCount(); i++)
         table->appendRow(getRow(i));
+}
+
+void uiTable::adminTable()
+{
+    if(table != nullptr)
+        delete table;
+    QList<QSqlField> fields = api->login->manager->getFields();
+    table = new QStandardItemModel(0,fields.count(),this);
+
+    for(int i = 0; i < fields.count(); i++)
+        table->setHorizontalHeaderItem(i, new QStandardItem(fields.at(i).name()));
+
+    setModel(table);
+    QList<QStandardItem*> out;
+    QList<QVariant> in;
+    for(int y = 0; y <= api->login->manager->getRecordCount(); y++)
+    {
+        in = api->login->manager->getRow(y);
+        for(int x = 0; x < in.count(); x++)
+            out.insert(x,new QStandardItem(in.at(x).toString()));
+
+        table->appendRow(out);
+    }
 }
 
 QList<QStandardItem*> uiTable::getRow(int index)
