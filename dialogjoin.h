@@ -14,7 +14,7 @@ class DialogJoin : public QDialog
     Q_OBJECT
 
 public:
-    explicit DialogJoin(Stronghold *_lib, QWidget *parent = 0);
+    explicit DialogJoin(SUM *_sum, QWidget *parent = 0);
     ~DialogJoin();
 private slots:
     void on_buttonBox_accepted();
@@ -23,7 +23,8 @@ private slots:
 
 private:
     Ui::DialogJoin *ui;
-    Stronghold* lib;
+    SUM* sum;
+    User* user;
 };
 
 #endif // DIALOGJOIN_H

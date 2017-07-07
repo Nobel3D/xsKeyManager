@@ -3,14 +3,13 @@
 #include <QMessageBox>
 #include <QComboBox>
 
-DialogJoin::DialogJoin(Stronghold* _lib, QWidget *parent) :
+DialogJoin::DialogJoin(SUM* _sum, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DialogJoin)
 {
-    if(_lib != nullptr) //TODO: Error message
-        lib = _lib;
+    sum = _sum;
     ui->setupUi(this);
-    ui->comboBox->addItems(lib->login->getUsers());
+    ui->comboBox->addItems(sum->getUsers());
 }
 
 DialogJoin::~DialogJoin()
@@ -21,7 +20,7 @@ DialogJoin::~DialogJoin()
 
 void DialogJoin::on_buttonBox_accepted()
 {
-    if(!lib->userJoin(ui->comboBox->currentText(), ui->linePassword->text()))
+    if(!sum->login(ui->comboBox->currentText(), ui->linePassword->text()))
     {
         //TODO: Add login limit function
         //ui->label_2->setText("(" + QString::number(lib->password->getHit()) + "/" + QString::number(lib->password->getMaxHit()) +  ")");

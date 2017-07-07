@@ -14,7 +14,7 @@ class winCreate : public QDialog
     Q_OBJECT
 
 public:
-    explicit winCreate(Stronghold* _api, QWidget *parent = 0);
+    explicit winCreate(PEM* _pem, QWidget *parent = 0);
     ~winCreate();
 
     QString name;
@@ -27,7 +27,7 @@ private slots:
 
 private:
     Ui::winCreate *ui;
-    Stronghold* api;
+    PEM* pem;
     QStandardItemModel* list;
 };
 

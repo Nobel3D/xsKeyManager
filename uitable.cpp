@@ -6,56 +6,60 @@ uiTable::uiTable(QWidget *parent)
 {
 }
 
-void uiTable::init(Stronghold *_api)
+void uiTable::init(SUM *_sum, PEM *_pem)
 {
-    api = _api;
+    sum = _sum;
+    pem = _pem;
     loadTable();
 }
 
 void uiTable::loadTable()
 {
+    bAdmin = false;
     if(table != nullptr)
         delete table;
-    QStringList fields = api->tableField();
+    QStringList fields = pem->tableField();
     table = new QStandardItemModel(0,fields.count(),this);
 
     for(int i = 0; i < fields.count(); i++)
         table->setHorizontalHeaderItem(i, new QStandardItem(fields.at(i)));
 
     setModel(table);
-    for(int i = 0; i <= api->database->getRecordCount(); i++)
+    for(int i = 0; i <= pem->db->getRecordCount(); i++)
         table->appendRow(getRow(i));
 }
 
 void uiTable::adminTable()
 {
+    bAdmin = true;
     if(table != nullptr)
         delete table;
-    QList<QSqlField> fields = api->login->manager->getFields();
+    QList<QSqlField> fields = pem->db->getFields();
     table = new QStandardItemModel(0,fields.count(),this);
 
     for(int i = 0; i < fields.count(); i++)
         table->setHorizontalHeaderItem(i, new QStandardItem(fields.at(i).name()));
 
     setModel(table);
-    QList<QStandardItem*> out;
-    QList<QVariant> in;
-    for(int y = 0; y <= api->login->manager->getRecordCount(); y++)
-    {
-        in = api->login->manager->getRow(y);
-        for(int x = 0; x < in.count(); x++)
-            out.insert(x,new QStandardItem(in.at(x).toString()));
-
-        table->appendRow(out);
-    }
+    for(int i = 0; i <= pem->db->getRecordCount(); i++)
+        table->appendRow(getRow(i));
 }
 
 QList<QStandardItem*> uiTable::getRow(int index)
 {
     QList<QStandardItem*> out;
-    QStringList in = api->dataGet(index);
-    for(int i = 0; i < in.count(); i++)
-        out.insert(i,new QStandardItem(in.at(i)));
+    if(bAdmin)
+    {
+        QList<QVariant> in = pem->db->getRow(index);
+        for(int x = 0; x < in.count(); x++)
+            out.insert(x,new QStandardItem(in.at(x).toString()));
+    }
+    else
+    {
+        QStringList in = pem->get(index);
+        for(int i = 0; i < in.count(); i++)
+            out.insert(i,new QStandardItem(in.at(i)));
+    }
     return out;
 }
 
@@ -67,22 +71,26 @@ int uiTable::getID(int row)
 void uiTable::addRecord()
 {
     QStringList values;
-    for(int i = 0; i < api->database->getFieldCount(); i++)
+    for(int i = 0; i < pem->db->getFieldCount(); i++)
         values.append("");
-
-    api->dataAdd(values);
-    table->appendRow(getRow(api->database->getRecordCount() + 1));
+    if(bAdmin)
+        sum->add();
+    else
+        pem->add(values);
+    table->appendRow(getRow(pem->db->getRecordCount() + 1));
 }
 
 void uiTable::removeRecord()
 {
     int buf = currentIndex().row();
-    api->dataDelete(getID(buf));
+    pem->remove(getID(buf));
     table->removeRow(buf);
 }
 
 void uiTable::dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)
 {
-
-    api->dataUpdate(api->tableField().at(topLeft.column()), topLeft.data().toString(), getID(topLeft.row()));
+    if(bAdmin)
+        sum->update(topLeft.column(), getID(topLeft.row()), topLeft.data());
+    else
+        pem->update(pem->tableField().at(topLeft.column()), topLeft.data().toString(), getID(topLeft.row()));
 }

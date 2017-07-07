@@ -11,12 +11,13 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    api = new Stronghold(LOGINFILE);
-    uiJoin = new DialogJoin(api);
+    sum = new SUM(LOGINFILE);
+    uiJoin = new DialogJoin(sum);
     while(uiJoin->exec() != QDialog::Accepted);
     ui->setupUi(this);
-    ui->tableView->init(api);
-    ui->comboTable->addItems(api->tableList());
+    pem = new PEM(sum->getUser());
+    ui->tableView->init(sum, pem);
+    ui->comboTable->addItems(pem->tableList());
     connect(ui->actionAbout_QT, SIGNAL(triggered()), this, SLOT(on_menuAboutQT()));
     connect(ui->actionGenerator, SIGNAL(triggered()), this, SLOT(on_menuGenerate()));
     connect(ui->actionExport_Database, SIGNAL(triggered()), this, SLOT(on_menuExportDatabase()));
@@ -24,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionImport_Database, SIGNAL(triggered()), this, SLOT(on_menuImportDatabase()));
     connect(ui->actionImport_Table, SIGNAL(triggered()), this, SLOT(on_menuImportTable()));
     connect(ui->actionAdminMode, SIGNAL(triggered()), this, SLOT(on_menuAdmin()));
+    connect(ui->actionDatabaseMode, SIGNAL(triggered()), this, SLOT(on_menuDatabase()));
 }
 
 MainWindow::~MainWindow()
@@ -34,7 +36,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_comboTable_currentIndexChanged(int index)
 {
-    api->tableUse(ui->comboTable->currentText());
+    pem->tableUse(ui->comboTable->currentText());
     ui->tableView->loadTable();
 }
 
@@ -55,7 +57,7 @@ void MainWindow::on_buttonSave_clicked()
 
 void MainWindow::on_buttonCreate_clicked()
 {
-    create = new winCreate(api);
+    create = new winCreate(pem);
     if(create->exec() == QDialog::Accepted)
         ui->comboTable->addItem(create->name);
 
@@ -83,7 +85,7 @@ void MainWindow::on_menuImportTable()
     QString file;
     file = QFileDialog::getOpenFileName(nullptr, "Select file...", QDir::homePath(), "*.csv");
     if(!file.isEmpty())
-        api->importTable(QFileInfo(file).completeBaseName(), file);
+        pem->importTable(QFileInfo(file).completeBaseName(), file);
     ui->comboTable->addItem(QFileInfo(file).completeBaseName());
 }
 
@@ -95,7 +97,7 @@ void MainWindow::on_menuImportDatabase()
     for(int i = 0; i < buffer.count(); i++)
         files.append(QFileInfo(buffer.at(i)));
     if(!files.isEmpty())
-        api->importDatabase(files);
+        pem->importDatabase(files);
 }
 
 void MainWindow::on_menuExportTable()
@@ -103,7 +105,7 @@ void MainWindow::on_menuExportTable()
     QString file;
     file = QFileDialog::getSaveFileName(nullptr, "Select file...", QDir::homePath(), "*.csv");
     if(!file.isEmpty())
-        api->exportTable(file);
+        pem->exportTable(file);
 }
 
 void MainWindow::on_menuExportDatabase()
@@ -111,18 +113,19 @@ void MainWindow::on_menuExportDatabase()
     QString file = QFileDialog::getExistingDirectory(nullptr, "Select directory...", QDir::homePath());
     QDir dir(file);
     if(!file.isEmpty())
-        api->exportDatabase(dir);
+        pem->exportDatabase(dir);
 }
 
 void MainWindow::on_menuAdmin()
 {
-    ui->comboTable->addItems(api->login->getUsers());
+    ui->comboTable->clear();
+    ui->comboTable->addItem("Admin View");
     ui->tableView->adminTable();
 }
 
 void MainWindow::on_menuDatabase()
 {
-    ui->comboTable->addItems(api->tableList());
-    api->tableUse(ui->comboTable->currentText());
+    ui->comboTable->clear();
+    ui->comboTable->addItems(pem->tableList());
     ui->tableView->loadTable();
 }

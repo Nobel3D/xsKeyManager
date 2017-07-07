@@ -13,7 +13,7 @@ class uiTable : public QTableView
 
 public:
     explicit uiTable(QWidget *parent = nullptr);
-    void init(Stronghold *_api);
+    void init(SUM *_sum, PEM *_pem);
     void addRecord();
     void removeRecord();
     void loadTable();
@@ -22,8 +22,10 @@ protected slots:
     void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles = QVector<int>()) override;
 private:
     QStandardItemModel* table = nullptr;
-    Stronghold* api;
+    PEM* pem;
+    SUM* sum;
     QList<QStandardItem*> getRow(int index);
+    bool bAdmin = false;
     int getID(int row);
 };
 

@@ -3,11 +3,11 @@
 #include <QListView>
 #include <QMessageBox>
 
-winCreate::winCreate(Stronghold *_api, QWidget *parent) :
+winCreate::winCreate(PEM *_pem, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::winCreate)
 {
-    api = _api;
+    pem = _pem;
     ui->setupUi(this);
     list = new QStandardItemModel();
     ui->listView->setModel(list);
@@ -43,5 +43,5 @@ void winCreate::on_buttonBox_accepted()
     for(int i = 0; i < iRow; i++)
         fields.append(list->index(i, 0).data().toString());
 
-    api->tableCreate(name, fields);
+    pem->tableCreate(name, fields);
 }

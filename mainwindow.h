@@ -40,7 +40,8 @@ private:
     DialogJoin* uiJoin;
     winCreate* create;
     winGenerate* generate;
-    Stronghold* api;
+    SUM* sum;
+    PEM* pem;
 };
 
 #endif // MAINWINDOW_H
