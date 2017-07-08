@@ -10,7 +10,6 @@ void uiTable::init(SUM *_sum, PEM *_pem)
 {
     sum = _sum;
     pem = _pem;
-    loadTable();
 }
 
 void uiTable::loadTable()
@@ -34,14 +33,14 @@ void uiTable::adminTable()
     bAdmin = true;
     if(table != nullptr)
         delete table;
-    QList<QSqlField> fields = pem->db->getFields();
+    QList<QSqlField> fields = sum->db->getFields();
     table = new QStandardItemModel(0,fields.count(),this);
 
     for(int i = 0; i < fields.count(); i++)
         table->setHorizontalHeaderItem(i, new QStandardItem(fields.at(i).name()));
 
     setModel(table);
-    for(int i = 0; i <= pem->db->getRecordCount(); i++)
+    for(int i = 0; i <= sum->db->getRecordCount(); i++)
         table->appendRow(getRow(i));
 }
 
@@ -50,7 +49,7 @@ QList<QStandardItem*> uiTable::getRow(int index)
     QList<QStandardItem*> out;
     if(bAdmin)
     {
-        QList<QVariant> in = pem->db->getRow(index);
+        QList<QVariant> in = sum->db->getRow(index);
         for(int x = 0; x < in.count(); x++)
             out.insert(x,new QStandardItem(in.at(x).toString()));
     }
