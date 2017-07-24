@@ -30,18 +30,21 @@ SOURCES += main.cpp\
     dialogjoin.cpp \
     uitable.cpp \
     wincreate.cpp \
-    wingenerate.cpp
+    wingenerate.cpp \
+    xsabout.cpp
 
 HEADERS  += mainwindow.h \
     dialogjoin.h \
     uitable.h \
     wincreate.h \
-    wingenerate.h
+    wingenerate.h \
+    xsabout.h
 
 FORMS    += mainwindow.ui \
     dialogjoin.ui \
     wincreate.ui \
-    wingenerate.ui
+    wingenerate.ui \
+    xsabout.ui
 
 
 win32:CONFIG(release, debug|release): LIBS += -L/usr/lib/release/ -lxs -lstronghold

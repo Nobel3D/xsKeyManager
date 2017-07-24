@@ -18,7 +18,8 @@ MainWindow::MainWindow(QWidget *parent) :
     pem = new PEM(sum->getUser());
     ui->tableView->init(sum, pem);
     ui->comboTable->addItems(pem->tableList());
-    connect(ui->actionAbout_QT, SIGNAL(triggered()), this, SLOT(on_menuAboutQT()));
+    connect(ui->actionAbout_QT, SIGNAL(triggered(bool)), this, SLOT(on_menuAboutQT()));
+    connect(ui->actionAbout_XSoftware, SIGNAL(triggered(bool)), this, SLOT(on_menuAboutXSoftware()));
     connect(ui->actionGenerator, SIGNAL(triggered()), this, SLOT(on_menuGenerate()));
     connect(ui->actionExport_Database, SIGNAL(triggered()), this, SLOT(on_menuExportDatabase()));
     connect(ui->actionExport_Table, SIGNAL(triggered()), this, SLOT(on_menuExportTable()));

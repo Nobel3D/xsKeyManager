@@ -76,7 +76,7 @@ void uiTable::addRecord()
         sum->add();
     else
         pem->add(values);
-    table->appendRow(getRow(pem->db->getRecordCount() + 1));
+    table->appendRow(getRow(pem->db->getRecordCount()));
 }
 
 void uiTable::removeRecord()
@@ -91,5 +91,5 @@ void uiTable::dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomR
     if(bAdmin)
         sum->update(topLeft.column(), getID(topLeft.row()), topLeft.data());
     else
-        pem->update(pem->tableField().at(topLeft.column()), topLeft.data().toString(), getID(topLeft.row()));
+        pem->update(topLeft.column(), topLeft.data().toString(), getID(topLeft.row()));
 }

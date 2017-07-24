@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Stronghold Login</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../res/shield.png</normaloff>../res/shield.png</iconset>
   </property>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">

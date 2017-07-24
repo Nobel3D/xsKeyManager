@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Stronghold</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../res/shield.png</normaloff>../res/shield.png</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QLineEdit" name="boxStatus">
@@ -107,7 +111,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>23</height>
+     <height>30</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -181,12 +185,12 @@
   </action>
   <action name="actionAdminMode">
    <property name="text">
-    <string>Switch Admin Mode</string>
+    <string>&amp;Switch Admin Mode</string>
    </property>
   </action>
   <action name="actionDatabaseMode">
    <property name="text">
-    <string>Switch Database Mode</string>
+    <string>Switch &amp;Database Mode</string>
    </property>
   </action>
  </widget>
