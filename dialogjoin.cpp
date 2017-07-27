@@ -22,8 +22,7 @@ void DialogJoin::on_buttonBox_accepted()
 {
     if(!sum->login(ui->comboBox->currentText(), ui->linePassword->text()))
     {
-        //TODO: Add login limit function
-        //ui->label_2->setText("(" + QString::number(lib->password->getHit()) + "/" + QString::number(lib->password->getMaxHit()) +  ")");
+        ui->label_hit->setText(sum->hit());
         reject();
     }
 }

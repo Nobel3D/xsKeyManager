@@ -18,6 +18,7 @@ public:
     void removeRecord();
     void loadTable();
     void adminTable();
+    bool bChanges = false;
 protected slots:
     void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles = QVector<int>()) override;
 private:

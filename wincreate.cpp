@@ -31,17 +31,21 @@ void winCreate::on_pushRemove_clicked()
 
 void winCreate::on_buttonBox_accepted()
 {
-    name = ui->lineTable->text();
-    int iRow = list->rowCount();
-    if(name.isEmpty() || iRow < 1)
+    if(QMessageBox::warning(nullptr, "Commit?", "Creating a new table, all changes will be commited!\nDo you want continue?", QMessageBox::Save | QMessageBox::Discard) == QMessageBox::Save)
     {
-        QMessageBox::warning(0,"Creation failed!", "Field or Table name didn't find!\nTable won't be create.");
-        reject();
-        return;
-    }
-    QStringList fields;
-    for(int i = 0; i < iRow; i++)
-        fields.append(list->index(i, 0).data().toString());
+        name = ui->lineTable->text();
+        int iRow = list->rowCount();
+        if(name.isEmpty() || iRow < 1)
+        {
+            QMessageBox::warning(0,"Creation failed!", "Field or Table name didn't find!\nTable won't be create.");
+            reject();
+            return;
+        }
+        QStringList fields;
+        for(int i = 0; i < iRow; i++)
+            fields.append(list->index(i, 0).data().toString());
 
-    pem->tableCreate(name, fields);
+        pem->tableCreate(name, fields);
+        pem->commit();
+    }
 }

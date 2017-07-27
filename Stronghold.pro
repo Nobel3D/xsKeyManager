@@ -50,3 +50,6 @@ FORMS    += mainwindow.ui \
 win32:CONFIG(release, debug|release): LIBS += -L/usr/lib/release/ -lxs -lstronghold
 else:win32:CONFIG(debug, debug|release): LIBS += -L/usr/lib/debug/ -lxs -lstronghold
 else:unix: LIBS += -L/usr/lib/ -lxs -lstronghold
+
+RESOURCES += \
+    res.qrc

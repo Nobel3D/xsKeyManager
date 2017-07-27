@@ -57,7 +57,10 @@ QList<QStandardItem*> uiTable::getRow(int index)
     {
         QStringList in = pem->get(index);
         for(int i = 0; i < in.count(); i++)
+        {
             out.insert(i,new QStandardItem(in.at(i)));
+
+        }
     }
     return out;
 }
@@ -70,13 +73,24 @@ int uiTable::getID(int row)
 void uiTable::addRecord()
 {
     QStringList values;
-    for(int i = 0; i < pem->db->getFieldCount(); i++)
-        values.append("");
+    QList<QStandardItem*> out;
+    out.append(new QStandardItem(QString::number(getID(table->rowCount() - 1) + 1)));
+    out.at(0)->setData(QBrush(QColor("#da4453")), Qt::BackgroundColorRole);
     if(bAdmin)
+    {
         sum->add();
+        for(int i = 1; i < sum->db->getFieldCount(); i++)
+            out.append(new QStandardItem(""));
+    }
     else
-        pem->add(values);
-    table->appendRow(getRow(pem->db->getRecordCount()));
+    {
+        pem->add();
+        for(int i = 1; i < pem->db->getFieldCount(); i++)
+            out.append(new QStandardItem(""));
+    }
+
+    table->appendRow(out);
+
 }
 
 void uiTable::removeRecord()
@@ -88,6 +102,9 @@ void uiTable::removeRecord()
 
 void uiTable::dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles)
 {
+    bChanges = true;
+    //topLeft == bottonRight
+    model()->setData(bottomRight, QBrush(QColor("#da4453")), Qt::BackgroundColorRole);
     if(bAdmin)
         sum->update(topLeft.column(), getID(topLeft.row()), topLeft.data());
     else

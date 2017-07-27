@@ -25,8 +25,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionExport_Table, SIGNAL(triggered()), this, SLOT(on_menuExportTable()));
     connect(ui->actionImport_Database, SIGNAL(triggered()), this, SLOT(on_menuImportDatabase()));
     connect(ui->actionImport_Table, SIGNAL(triggered()), this, SLOT(on_menuImportTable()));
-    connect(ui->actionAdminMode, SIGNAL(triggered()), this, SLOT(on_menuAdmin()));
-    connect(ui->actionDatabaseMode, SIGNAL(triggered()), this, SLOT(on_menuDatabase()));
 }
 
 MainWindow::~MainWindow()
@@ -37,6 +35,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_comboTable_currentIndexChanged(int index)
 {
+    if(ui->tableView->bChanges)
+    {
+        ui->tableView->bChanges = false;
+        int res = QMessageBox::warning(this, "Commit Changes?",
+                             "If you switch table without doing a commit, your changes will be lost!\nDo you want continue?",
+                             QMessageBox::Save | QMessageBox::Discard);
+        if(res == QMessageBox::Save)
+            pem->commit();
+    }
     pem->tableUse(ui->comboTable->currentText());
     ui->tableView->loadTable();
 }
@@ -50,11 +57,6 @@ void MainWindow::on_buttonRemove_clicked()
 {
     ui->tableView->removeRecord();
 }
-
-void MainWindow::on_buttonSave_clicked()
-{
-}
-
 
 void MainWindow::on_buttonCreate_clicked()
 {
@@ -71,7 +73,8 @@ void MainWindow::on_menuAboutQT()
 
 void MainWindow::on_menuAboutXSoftware()
 {
-    QMessageBox::aboutQt(0, "About...");
+    about = new xsAbout;
+    about->show();
 }
 
 
@@ -117,16 +120,30 @@ void MainWindow::on_menuExportDatabase()
         pem->exportDatabase(dir);
 }
 
-void MainWindow::on_menuAdmin()
+
+void MainWindow::on_buttonSwitch_clicked()
 {
-    ui->comboTable->clear();
-    ui->comboTable->addItem("Admin View");
-    ui->tableView->adminTable();
+    mode = !mode;
+    if(!mode)
+    {
+        ui->comboTable->clear();
+        ui->comboTable->addItems(pem->tableList());
+        ui->tableView->loadTable();
+    }
+    else
+    {
+        ui->comboTable->clear();
+        ui->comboTable->addItem("Admin View");
+        ui->tableView->adminTable();
+    }
 }
 
-void MainWindow::on_menuDatabase()
+void MainWindow::on_buttonCommit_clicked()
 {
-    ui->comboTable->clear();
-    ui->comboTable->addItems(pem->tableList());
-    ui->tableView->loadTable();
+    if(QMessageBox::warning(nullptr, "Commit?", "Red cells will be save with new value!\nDo you want continue?", QMessageBox::Save | QMessageBox::Discard) == QMessageBox::Save)
+    {
+        pem->commit();
+        ui->tableView->bChanges = false;
+        ui->tableView->loadTable();
+    }
 }

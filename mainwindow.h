@@ -6,6 +6,7 @@
 #include <dialogjoin.h>
 #include <wincreate.h>
 #include <wingenerate.h>
+#include <xsabout.h>
 
 namespace Ui {
 class MainWindow;
@@ -23,7 +24,6 @@ private slots:
     void on_comboTable_currentIndexChanged(int index);
     void on_buttonAdd_clicked();
     void on_buttonRemove_clicked();
-    void on_buttonSave_clicked();
     void on_buttonCreate_clicked();
     void on_menuAboutQT();
     void on_menuAboutXSoftware();
@@ -32,16 +32,19 @@ private slots:
     void on_menuImportDatabase();
     void on_menuExportTable();
     void on_menuExportDatabase();
-    void on_menuAdmin();
-    void on_menuDatabase();
+
+    void on_buttonSwitch_clicked();
+    void on_buttonCommit_clicked();
 
 private:
     Ui::MainWindow *ui;
     DialogJoin* uiJoin;
     winCreate* create;
     winGenerate* generate;
+    xsAbout* about;
     SUM* sum;
     PEM* pem;
+    bool mode = false;
 };
 
 #endif // MAINWINDOW_H
