@@ -93,8 +93,8 @@
     <rect>
      <x>460</x>
      <y>160</y>
-     <width>40</width>
-     <height>40</height>
+     <width>64</width>
+     <height>64</height>
     </rect>
    </property>
    <property name="font">
@@ -111,13 +111,13 @@
     <string/>
    </property>
    <property name="icon">
-    <iconset resource="res.qrc">
-     <normaloff>:/resource/res/list-add.svg</normaloff>:/resource/res/list-add.svg</iconset>
+    <iconset theme="insert-table-row">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="iconSize">
     <size>
-     <width>32</width>
-     <height>32</height>
+     <width>64</width>
+     <height>64</height>
     </size>
    </property>
    <property name="flat">
@@ -128,9 +128,9 @@
    <property name="geometry">
     <rect>
      <x>460</x>
-     <y>220</y>
-     <width>40</width>
-     <height>40</height>
+     <y>250</y>
+     <width>64</width>
+     <height>64</height>
     </rect>
    </property>
    <property name="font">
@@ -147,13 +147,13 @@
     <string/>
    </property>
    <property name="icon">
-    <iconset resource="res.qrc">
-     <normaloff>:/resource/res/list-remove.svg</normaloff>:/resource/res/list-remove.svg</iconset>
+    <iconset theme="delete-table-row">
+     <normaloff>.</normaloff>.</iconset>
    </property>
    <property name="iconSize">
     <size>
-     <width>32</width>
-     <height>32</height>
+     <width>64</width>
+     <height>64</height>
     </size>
    </property>
    <property name="flat">
@@ -161,9 +161,7 @@
    </property>
   </widget>
  </widget>
- <resources>
-  <include location="res.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>buttonBox</sender>

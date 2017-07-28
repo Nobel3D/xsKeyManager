@@ -27,7 +27,6 @@ private slots:
     void on_buttonCreate_clicked();
     void on_menuAboutQT();
     void on_menuAboutXSoftware();
-    void on_menuGenerate();
     void on_menuImportTable();
     void on_menuImportDatabase();
     void on_menuExportTable();
@@ -35,6 +34,8 @@ private slots:
 
     void on_buttonSwitch_clicked();
     void on_buttonCommit_clicked();
+
+    void on_buttonGenerate_clicked();
 
 private:
     Ui::MainWindow *ui;

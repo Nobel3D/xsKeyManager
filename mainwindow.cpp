@@ -20,7 +20,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->comboTable->addItems(pem->tableList());
     connect(ui->actionAbout_QT, SIGNAL(triggered(bool)), this, SLOT(on_menuAboutQT()));
     connect(ui->actionAbout_XSoftware, SIGNAL(triggered(bool)), this, SLOT(on_menuAboutXSoftware()));
-    connect(ui->actionGenerator, SIGNAL(triggered()), this, SLOT(on_menuGenerate()));
     connect(ui->actionExport_Database, SIGNAL(triggered()), this, SLOT(on_menuExportDatabase()));
     connect(ui->actionExport_Table, SIGNAL(triggered()), this, SLOT(on_menuExportTable()));
     connect(ui->actionImport_Database, SIGNAL(triggered()), this, SLOT(on_menuImportDatabase()));
@@ -77,13 +76,6 @@ void MainWindow::on_menuAboutXSoftware()
     about->show();
 }
 
-
-void MainWindow::on_menuGenerate()
-{
-    generate = new winGenerate;
-    generate->show();
-}
-
 void MainWindow::on_menuImportTable()
 {
     QString file;
@@ -132,6 +124,9 @@ void MainWindow::on_buttonSwitch_clicked()
     }
     else
     {
+        ui->buttonCommit->setDisabled(true);
+        ui->buttonAdd->setIcon(QIcon::fromTheme("list-add-user"));
+        ui->buttonRemove->setIcon(QIcon::fromTheme("list-remove-user"));
         ui->comboTable->clear();
         ui->comboTable->addItem("Admin View");
         ui->tableView->adminTable();
@@ -146,4 +141,10 @@ void MainWindow::on_buttonCommit_clicked()
         ui->tableView->bChanges = false;
         ui->tableView->loadTable();
     }
+}
+
+void MainWindow::on_buttonGenerate_clicked()
+{
+    generate = new winGenerate;
+    generate->show();
 }

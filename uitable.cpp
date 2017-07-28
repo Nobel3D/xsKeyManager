@@ -72,6 +72,7 @@ int uiTable::getID(int row)
 
 void uiTable::addRecord()
 {
+    bChanges = true;
     QStringList values;
     QList<QStandardItem*> out;
     out.append(new QStandardItem(QString::number(getID(table->rowCount() - 1) + 1)));
@@ -95,8 +96,12 @@ void uiTable::addRecord()
 
 void uiTable::removeRecord()
 {
+    bChanges = true;
     int buf = currentIndex().row();
-    pem->remove(getID(buf));
+    if(bAdmin)
+        sum->remove(getID(buf));
+    else
+        pem->remove(getID(buf));
     table->removeRow(buf);
 }
 

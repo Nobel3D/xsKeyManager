@@ -52,4 +52,4 @@ else:win32:CONFIG(debug, debug|release): LIBS += -L/usr/lib/debug/ -lxs -lstrong
 else:unix: LIBS += -L/usr/lib/ -lxs -lstronghold
 
 RESOURCES += \
-    res.qrc
+    ../res/res.qrc
