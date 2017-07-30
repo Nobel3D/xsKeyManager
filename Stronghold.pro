@@ -25,31 +25,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 
-SOURCES += main.cpp\
-        mainwindow.cpp \
-    dialogjoin.cpp \
-    uitable.cpp \
-    wincreate.cpp \
-    wingenerate.cpp \
-    xsabout.cpp
-
-HEADERS  += mainwindow.h \
-    dialogjoin.h \
-    uitable.h \
-    wincreate.h \
-    wingenerate.h \
-    xsabout.h
-
-FORMS    += mainwindow.ui \
-    dialogjoin.ui \
-    wincreate.ui \
-    wingenerate.ui \
-    xsabout.ui
-
+SOURCES += main.cpp
 
 win32:CONFIG(release, debug|release): LIBS += -L/usr/lib/release/ -lxs -lstronghold
 else:win32:CONFIG(debug, debug|release): LIBS += -L/usr/lib/debug/ -lxs -lstronghold
 else:unix: LIBS += -L/usr/lib/ -lxs -lstronghold
-
-RESOURCES += \
-    ../res/res.qrc
