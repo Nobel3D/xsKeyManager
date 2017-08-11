@@ -1,4 +1,4 @@
-#include <libStronghold/stronghold.h>
+#include <stronghold.h>
 #include <QApplication>
 
 
