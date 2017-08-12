@@ -32,3 +32,11 @@ INCLUDEPATH += $$PWD/../lib/
 win32:CONFIG(release, debug|release): LIBS += -L/usr/lib/release/ -lxs -lstronghold
 else:win32:CONFIG(debug, debug|release): LIBS += -L/usr/lib/debug/ -lxs -lstronghold
 else:unix: LIBS += -L/usr/lib/ -lxs -lstronghold
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../bin/release/ -lstronghold
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../bin/debug/ -lstronghold
+else:unix: LIBS += -L$$PWD/../bin/ -lstronghold
+
+INCLUDEPATH += $$PWD/../xslib
+INCLUDEPATH += $$PWD/../lib
+DEPENDPATH += $$PWD/../lib
