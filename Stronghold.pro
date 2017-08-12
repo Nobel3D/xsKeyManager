@@ -31,7 +31,7 @@ SOURCES += main.cpp
 linux {
     INCLUDEPATH += /usr/include/xslib
     INCLUDEPATH += /usr/include/libStronghold
-    target.path = /usr/lib
+    target.path = /usr/bin
     INSTALLS += target
 }
 
