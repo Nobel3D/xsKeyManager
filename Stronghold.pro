@@ -24,8 +24,31 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+SOURCES += \
+    main.cpp \
+    wincreate.cpp \
+    wingenerate.cpp \
+    xsabout.cpp \
+    uitablelist.cpp \
+    uiactions.cpp \
+    mainwindow.cpp \
+    uilogin.cpp
 
-SOURCES += main.cpp
+HEADERS +=\
+    wincreate.h \
+    wingenerate.h \
+    xsabout.h \
+    uitablelist.h \
+    uiactions.h \
+    mainwindow.h \
+    uilogin.h
+
+FORMS    += \
+    wincreate.ui \
+    wingenerate.ui \
+    xsabout.ui \
+    uilogin.ui \
+    mainwindow.ui \
 
 
 linux {
@@ -42,3 +65,6 @@ else:unix: LIBS += -L$$PWD/../../bin/ -lstronghold -lxs
 INCLUDEPATH += $$PWD/../xslib
 INCLUDEPATH += $$PWD/../lib
 DEPENDPATH += $$PWD/../lib
+
+RESOURCES += \
+    ../xsResource/res.qrc

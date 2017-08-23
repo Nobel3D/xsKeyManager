@@ -1,4 +1,4 @@
-#include <stronghold.h>
+#include "mainwindow.h"
 #include <QApplication>
 
 
