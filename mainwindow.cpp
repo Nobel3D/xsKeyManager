@@ -73,9 +73,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 void MainWindow::addFirstUser()
 {
     if(winLogin->lineEdit_2->text() != winLogin->lineEdit->text())
+    {
+        QMessageBox::warning(winLogin, "Password mismatch","Password mismatch, please retry!");
         return;
-
-    bLogin =sum->addRoot(winLogin->lineEdit_3->text(), winLogin->lineEdit->text(), "~/default.db");
+    }
+    bLogin = sum->addRoot(winLogin->lineEdit_3->text(), winLogin->lineEdit->text(), "~/default.db");
 }
 
 void MainWindow::login()
@@ -369,6 +371,7 @@ void MainWindow::setupUi()
 
     tableView = new QTableView(centralWidget);
     tableView->setObjectName(QSL("tableWidget"));
+    tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
     gridLayout->addWidget(tableView, 0, 2, 1, 1);
 
