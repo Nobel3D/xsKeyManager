@@ -20,7 +20,7 @@ winCreate::~winCreate()
 
 void winCreate::on_pushAdd_clicked()
 {
-    list->appendRow(new QStandardItem("field_name"));
+    list->appendRow(new QStandardItem("field" + QString::number(index++)));
 }
 
 void winCreate::on_pushRemove_clicked()
@@ -41,6 +41,5 @@ void winCreate::on_buttonBox_accepted()
     QStringList fields;
     for(int i = 0; i < iRow; i++)
         fields.append(list->index(i, 0).data().toString());
-
-    emit getTableName(name, fields);
+    emit getTableName(name, fields); //TODO: check if two fields have same name
 }

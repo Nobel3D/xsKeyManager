@@ -39,6 +39,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     setupUi();
 
     QStringList in = pem->tableList();
+    while(in.empty())
+    {
+        addTable();
+        in = pem->tableList();
+    }
 
     for(int i = 0; i < in.count(); i++)
         (new QTreeWidgetItem(tables->treeWidget))->setText(0, in.at(i));
@@ -56,12 +61,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(actionAbout_QT, SIGNAL(triggered(bool)), this, SLOT(aboutQT()));
     connect(actionAbout_XSoftware, SIGNAL(triggered(bool)), this, SLOT(aboutXSoftware()));
 
-    connect(actions->pushButtonGenerate, SIGNAL(clicked(bool)), this, SLOT(generate()));
-    connect(actions->pushButtonAdd, SIGNAL(clicked(bool)), this, SLOT(addRecord()));
-    connect(actions->pushButtonDelete, SIGNAL(clicked(bool)), this, SLOT(removeRecord()));
+    connect(buttons->button("buttonGenPassword"), SIGNAL(clicked(bool)), this, SLOT(generate()));
+    connect(buttons->button("buttonAddRecord"), SIGNAL(clicked(bool)), this, SLOT(addRecord()));
+    connect(buttons->button("buttonDeleteRecord"), SIGNAL(clicked(bool)), this, SLOT(removeRecord()));
+    connect(buttons->button("buttonCommit"), SIGNAL(clicked(bool)), this, SLOT(commit()));
+    connect(buttons->button("buttonSwitch"), SIGNAL(clicked(bool)), this, SLOT(switchMode()));
     connect(tables->treeWidget, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(loadTable(QTreeWidgetItem*,QTreeWidgetItem*)));
-    connect(actions->pushButtonCommit, SIGNAL(clicked(bool)), this, SLOT(commit()));
-    connect(actions->pushButtonSwitch, SIGNAL(clicked(bool)), this, SLOT(switchMode()));
     connect(tables->pushButtonAdd, SIGNAL(clicked(bool)), this, SLOT(addTable()));
     connect(tables->pushButtonDelete, SIGNAL(clicked(bool)),  this, SLOT(deleteTable()));
     connect(table, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(updateRecord(QModelIndex,QModelIndex)));
@@ -108,18 +113,18 @@ void MainWindow::switchMode()
 {
     if(bAdmin)
     {
-        actions->pushButtonCommit->setDisabled(false);
-        actions->pushButtonAdd->setIcon(xsUi::getFromIcons(QSL(":/icons/insert-table-row.svg")));
-        actions->pushButtonDelete->setIcon(xsUi::getFromIcons(QSL(":/icons/delete-table-row.svg")));
-        actions->pushButtonSwitch->setIcon(xsUi::getFromIcons(QSL(":/icons/system-switch-user.svg")));
+        buttons->button("buttonCommit")->setDisabled(false);
+        buttons->button("buttonAddRecord")->setIcon(xsUi::getFromIcons(QSL(":/icons/insert-table-row.svg")));
+        buttons->button("buttonDeleteRecord")->setIcon(xsUi::getFromIcons(QSL(":/icons/delete-table-row.svg")));
+        buttons->button("buttonSwitch")->setIcon(xsUi::getFromIcons(QSL(":/icons/system-switch-user.svg")));
         databaseTable(pem->tableActive());
     }
     else
     {
-        actions->pushButtonCommit->setDisabled(true);
-        actions->pushButtonAdd->setIcon(xsUi::getFromIcons(QSL(":/icons/list-add-user.svg")));
-        actions->pushButtonDelete->setIcon(xsUi::getFromIcons(QSL(":/icons/list-remove-user.svg")));
-        actions->pushButtonSwitch->setIcon(xsUi::getFromIcons(QSL(":/icons/table.svg")));
+        buttons->button("buttonCommit")->setDisabled(true);
+        buttons->button("buttonAddRecord")->setIcon(xsUi::getFromIcons(QSL(":/icons/list-add-user.svg")));
+        buttons->button("buttonDeleteRecord")->setIcon(xsUi::getFromIcons(QSL(":/icons/list-remove-user.svg")));
+        buttons->button("buttonSwitch")->setIcon(xsUi::getFromIcons(QSL(":/icons/table.svg")));
         adminTable();
     }
 }
@@ -378,11 +383,16 @@ void MainWindow::setupUi()
     table = new QStandardItemModel;
     tableView->setModel(table);
 
-    actions = new uiActions(centralWidget);
-    actions->setObjectName(QSL("actions"));
-    actions->setMinimumSize(QSize(100, 0));
+    buttons = new xsButtons(centralWidget);
+    buttons->setObjectName(QSL("buttons"));
+    buttons->setMinimumSize(QSize(100, 0));
+    buttons->buttonAdd(QSL("buttonSwitch"), QSL(":/icons/system-switch-user.svg"));
+    buttons->buttonAdd(QSL("buttonAddRecord"), QSL(":/icons/insert-table-row.svg"));
+    buttons->buttonAdd(QSL("buttonDeleteRecord"), QSL(":/icons/delete-table-row.svg"));
+    buttons->buttonAdd(QSL("buttonGenPassword"), QSL(":/icons/password-generate.svg"));
+    buttons->buttonAdd(QSL("buttonCommit"), QSL(":/icons/document-save.svg"));
 
-    gridLayout->addWidget(actions, 0, 3, 1, 1);
+    gridLayout->addWidget(buttons, 0, 3, 1, 1);
 
     tables = new uiTableList(centralWidget);
     tables->setObjectName(QSL("tables"));

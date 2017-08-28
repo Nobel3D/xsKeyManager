@@ -9,7 +9,7 @@
 #include "xsabout.h"
 #include "stronghold_global.h"
 #include "uitablelist.h"
-#include "uiactions.h"
+#include "xsbuttons.h"
 #include "plugin.h"
 
 #include <QMainWindow>
@@ -57,7 +57,7 @@ public:
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QTableView *tableView;
-    uiActions *actions;
+    xsButtons *buttons;
     uiTableList *tables;
     uiLogin *winLogin;
     QStatusBar *statusBar;

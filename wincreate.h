@@ -29,6 +29,7 @@ private slots:
     void on_buttonBox_accepted();
 
 private:
+    int index = 0;
     Ui::winCreate *ui;
     QStandardItemModel* list;
 };

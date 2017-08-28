@@ -30,18 +30,18 @@ SOURCES += \
     wingenerate.cpp \
     xsabout.cpp \
     uitablelist.cpp \
-    uiactions.cpp \
     mainwindow.cpp \
-    uilogin.cpp
+    uilogin.cpp \
+    xsbuttons.cpp
 
 HEADERS +=\
     wincreate.h \
     wingenerate.h \
     xsabout.h \
     uitablelist.h \
-    uiactions.h \
     mainwindow.h \
-    uilogin.h
+    uilogin.h \
+    xsbuttons.h
 
 FORMS    += \
     wincreate.ui \
