@@ -1,5 +1,4 @@
 #include "uilogin.h"
-#include "ui_uilogin.h"
 #include <QMessageBox>
 #include <QComboBox>
 #include <QPushButton>

@@ -85,6 +85,7 @@ public slots:
     void createTable(const QString &tablename, const QStringList &fieldname);
     void deleteTable();
     void addTable();
+    void refreshTables();
     void aboutQT();
     void aboutXSoftware();
 };

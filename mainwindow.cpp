@@ -38,39 +38,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
        */
     setupUi();
 
-    QStringList in = pem->tableList();
-    while(in.empty())
-    {
+    if(pem->tableList().empty())
         addTable();
-        in = pem->tableList();
-    }
-
-    for(int i = 0; i < in.count(); i++)
-        (new QTreeWidgetItem(tables->treeWidget))->setText(0, in.at(i));
-
-    connect(actionImport_Table, SIGNAL(triggered()), this, SLOT(importTable()));
-    connect(actionExport_Database, SIGNAL(triggered()), this, SLOT(exportDatabase()));
-    connect(actionExport_Table, SIGNAL(triggered()), this, SLOT(exportTable()));
-    connect(actionAdd_Row, SIGNAL(triggered(bool)), this, SLOT(addRecord()));
-    connect(actionDelete_Row, SIGNAL(triggered(bool)), this, SLOT(removeRecord()));
-    connect(actionSave_Changes, SIGNAL(triggered(bool)), this, SLOT(commit()));
-    connect(actionAdd_Table, SIGNAL(triggered(bool)), this, SLOT(addTable()));
-    connect(actionDelete_Table, SIGNAL(triggered(bool)), this, SLOT(deleteTable()));
-    connect(actionPassword_Generator, SIGNAL(triggered(bool)), this, SLOT(generate()));
-    connect(actionSwitch_Mode, SIGNAL(triggered(bool)), this, SLOT(switchMode()));
-    connect(actionAbout_QT, SIGNAL(triggered(bool)), this, SLOT(aboutQT()));
-    connect(actionAbout_XSoftware, SIGNAL(triggered(bool)), this, SLOT(aboutXSoftware()));
-
-    connect(buttons->button("buttonGenPassword"), SIGNAL(clicked(bool)), this, SLOT(generate()));
-    connect(buttons->button("buttonAddRecord"), SIGNAL(clicked(bool)), this, SLOT(addRecord()));
-    connect(buttons->button("buttonDeleteRecord"), SIGNAL(clicked(bool)), this, SLOT(removeRecord()));
-    connect(buttons->button("buttonCommit"), SIGNAL(clicked(bool)), this, SLOT(commit()));
-    connect(buttons->button("buttonSwitch"), SIGNAL(clicked(bool)), this, SLOT(switchMode()));
-    connect(tables->treeWidget, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(loadTable(QTreeWidgetItem*,QTreeWidgetItem*)));
-    connect(tables->pushButtonAdd, SIGNAL(clicked(bool)), this, SLOT(addTable()));
-    connect(tables->pushButtonDelete, SIGNAL(clicked(bool)),  this, SLOT(deleteTable()));
-    connect(table, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(updateRecord(QModelIndex,QModelIndex)));
-
+    else
+        refreshTables();
     tables->treeWidget->setCurrentItem(tables->treeWidget->topLevelItem(0)); //TODO: set last item used if exist?
 
 }
@@ -175,7 +146,8 @@ void MainWindow::addTable()
 {
     winCreate *create = new winCreate();
     connect(create, SIGNAL(getTableName(QString,QStringList)), this, SLOT(createTable(QString,QStringList)));
-    if(create->exec() == QDialog::Accepted);
+    if(create->exec() == QDialog::Accepted)
+        refreshTables();
 }
 
 void MainWindow::adminTable()
@@ -291,6 +263,16 @@ void MainWindow::createTable(const QString &tablename, const QStringList &fieldn
         tables->treeWidget->addTopLevelItem(buffer);
         pem->commit();
     }
+}
+
+void MainWindow::refreshTables()
+{
+    disconnect(tables->treeWidget, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(loadTable(QTreeWidgetItem*,QTreeWidgetItem*)));
+    tables->treeWidget->clear();
+    QStringList in = pem->tableList();
+    for(int i = 0; i < in.count(); i++)
+        (new QTreeWidgetItem(tables->treeWidget))->setText(0, in.at(i));
+    connect(tables->treeWidget, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(loadTable(QTreeWidgetItem*,QTreeWidgetItem*)));
 }
 
 void MainWindow::aboutQT()
@@ -434,6 +416,30 @@ void MainWindow::setupUi()
     menuEdit->addAction(actionDelete_Table);
     menuTools->addAction(actionPassword_Generator);
     menuTools->addAction(actionSwitch_Mode);
+
+    connect(actionImport_Table, SIGNAL(triggered()), this, SLOT(importTable()));
+    connect(actionExport_Database, SIGNAL(triggered()), this, SLOT(exportDatabase()));
+    connect(actionExport_Table, SIGNAL(triggered()), this, SLOT(exportTable()));
+    connect(actionAdd_Row, SIGNAL(triggered(bool)), this, SLOT(addRecord()));
+    connect(actionDelete_Row, SIGNAL(triggered(bool)), this, SLOT(removeRecord()));
+    connect(actionSave_Changes, SIGNAL(triggered(bool)), this, SLOT(commit()));
+    connect(actionAdd_Table, SIGNAL(triggered(bool)), this, SLOT(addTable()));
+    connect(actionDelete_Table, SIGNAL(triggered(bool)), this, SLOT(deleteTable()));
+    connect(actionPassword_Generator, SIGNAL(triggered(bool)), this, SLOT(generate()));
+    connect(actionSwitch_Mode, SIGNAL(triggered(bool)), this, SLOT(switchMode()));
+    connect(actionAbout_QT, SIGNAL(triggered(bool)), this, SLOT(aboutQT()));
+    connect(actionAbout_XSoftware, SIGNAL(triggered(bool)), this, SLOT(aboutXSoftware()));
+
+    connect(buttons->button("buttonGenPassword"), SIGNAL(clicked(bool)), this, SLOT(generate()));
+    connect(buttons->button("buttonAddRecord"), SIGNAL(clicked(bool)), this, SLOT(addRecord()));
+    connect(buttons->button("buttonDeleteRecord"), SIGNAL(clicked(bool)), this, SLOT(removeRecord()));
+    connect(buttons->button("buttonCommit"), SIGNAL(clicked(bool)), this, SLOT(commit()));
+    connect(buttons->button("buttonSwitch"), SIGNAL(clicked(bool)), this, SLOT(switchMode()));
+    //connect(tables->treeWidget, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(loadTable(QTreeWidgetItem*,QTreeWidgetItem*)));
+    connect(tables->pushButtonAdd, SIGNAL(clicked(bool)), this, SLOT(addTable()));
+    connect(tables->pushButtonDelete, SIGNAL(clicked(bool)),  this, SLOT(deleteTable()));
+    connect(table, SIGNAL(dataChanged(QModelIndex,QModelIndex)), this, SLOT(updateRecord(QModelIndex,QModelIndex)));
+
 
     retranslateUi();
 }
