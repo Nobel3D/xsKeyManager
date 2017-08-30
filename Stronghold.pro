@@ -47,8 +47,6 @@ FORMS    += \
     wincreate.ui \
     wingenerate.ui \
     xsabout.ui \
-    uilogin.ui \
-    mainwindow.ui \
 
 
 linux {
@@ -66,5 +64,4 @@ INCLUDEPATH += $$PWD/../xslib
 INCLUDEPATH += $$PWD/../lib
 DEPENDPATH += $$PWD/../lib
 
-RESOURCES += \
-    ../xsResource/res.qrc
+RESOURCES += ../xsResource/res.qrc
