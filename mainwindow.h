@@ -1,8 +1,8 @@
 #ifndef MainWindow_H
 #define MainWindow_H
 
-#include "pem.h"
-#include "sum.h"
+#include <stronghold/pem.h>
+#include <stronghold/sum.h>
 #include "uilogin.h"
 #include "wincreate.h"
 #include "wingenerate.h"
@@ -10,7 +10,7 @@
 #include "stronghold_global.h"
 #include "uitablelist.h"
 #include "xsbuttons.h"
-#include "plugin.h"
+#include <plugin/xsplugin.h>
 
 #include <QMainWindow>
 #include <QTreeWidget>

@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include "stronghold_global.h"
-#include "sum.h"
+#include <stronghold/sum.h>
 #include <QButtonGroup>
 #include <QDialog>
 #include <QDialogButtonBox>

@@ -4,7 +4,7 @@
 #include <QDialog>
 #include "stronghold_global.h"
 #include <QStandardItemModel>
-#include "pem.h"
+#include <stronghold/pem.h>
 
 namespace Ui {
 class winCreate;

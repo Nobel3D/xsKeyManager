@@ -180,7 +180,6 @@ qlonglong MainWindow::getID(qlonglong index)
 void MainWindow::addRecord()
 {
     bChanges = true;
-    QStringList values;
     QList<QStandardItem*> out;
     out.append(new QStandardItem(QString::number(getID(table->rowCount() - 1) + 1)));
     out.at(0)->setData(QBrush(QColor("#da4453")), Qt::BackgroundColorRole);

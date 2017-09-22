@@ -22,3 +22,8 @@ void winGenerate::on_pushGenerate_clicked() //TODO: lock button when working and
                                                ui->checkNum->isChecked(), ui->checkLowers->isChecked(),
                                                ui->checkUppers->isChecked()));
 }
+
+void winGenerate::on_pushButton_clicked()
+{
+    destroy();
+}

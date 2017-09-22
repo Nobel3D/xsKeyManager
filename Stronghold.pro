@@ -41,7 +41,8 @@ HEADERS +=\
     uitablelist.h \
     mainwindow.h \
     uilogin.h \
-    xsbuttons.h
+    xsbuttons.h \
+    stronghold_global.h \
 
 FORMS    += \
     wincreate.ui \
@@ -51,17 +52,14 @@ FORMS    += \
 
 linux {
     INCLUDEPATH += /usr/include/xslib
-    INCLUDEPATH += /usr/include/libStronghold
     target.path = /usr/bin
     INSTALLS += target
 }
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../bin/release/ -lstronghold -lxs
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../bin/debug/ -lstronghold -lxs
-else:unix: LIBS += -L$$PWD/../../bin/ -lstronghold -lxs
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../bin/release/ -lxs
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../bin/debug/ -lxs
+else:unix: LIBS += -L$$PWD/../../bin/ -lxs
 
 INCLUDEPATH += $$PWD/../xslib
-INCLUDEPATH += $$PWD/../lib
-DEPENDPATH += $$PWD/../lib
 
 RESOURCES += ../xsResource/res.qrc
